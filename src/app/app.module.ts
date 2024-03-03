@@ -2,10 +2,14 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
+import { ReservationsListComponent } from './components/reservations-list/reservations-list.component';
+import { ReservationsFilterComponent } from './components/reservations-filter/reservations-filter.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ReservationsListComponent,
+    ReservationsFilterComponent
   ],
   imports: [
     BrowserModule
