@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { ApiService } from './services/api.service';
+import { Reservation } from './interfaces/reservations';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +9,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'yassir-assessment';
+  reservations: Reservation[] = [];
+
+  constructor( apiServices: ApiService){
+
+  }
 }
