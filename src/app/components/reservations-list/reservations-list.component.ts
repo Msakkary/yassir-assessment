@@ -4,18 +4,9 @@ import { Reservation } from '../../interfaces/reservations';
 @Component({
   selector: 'app-reservations-list',
   templateUrl: './reservations-list.component.html',
-  styleUrl: './reservations-list.component.scss'
+  styleUrl: './reservations-list.component.scss',
 })
 export class ReservationsListComponent {
   @Input() reservationsList: Reservation[] = [];
-
-
-  constructor(){}
-    
-  trackById(index: number, item: Reservation): number {
-    return item.id;
-  }
-  
-
-
+  constructor() {}
 }

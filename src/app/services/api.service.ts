@@ -12,7 +12,7 @@ export class ApiService {
     this.getReservations();
   }
 
-  getReservations(){
+  getReservations() {
     return this.http.get<Reservation[]>('http://localhost:3000/reservations');
   }
 }

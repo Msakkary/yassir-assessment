@@ -1,56 +1,78 @@
 <div class="row mb-3">
   <div class="col-md-12">
     <label for="customerName">Search by Name and Surname:</label>
-    <input type="text" [(ngModel)]="customerName" class="form-control" id="customerName" placeholder="Enter fistname or surname" (keyup)="onFilterChange($event)">
+    <input
+      type="text"
+      [(ngModel)]="customerName"
+      class="form-control"
+      id="customerName"
+      placeholder="Enter fistname or surname"
+      (keyup)="onFilterChange($event)"
+    />
   </div>
 </div>
 
 <div class="row">
   <div class="col-md-12">
     <h5>Tags</h5>
-      <span  *ngFor="let value of getAllValues()" style="padding-right: 5px;">
-        <button type="button" class="btn btn-outline-secondary btn-sm" (click)="removeValueFromFilters(value)">
-          {{ value }}
+    <span *ngFor="let value of getAllValues()" style="padding-right: 5px">
+      <button
+        type="button"
+        class="btn btn-outline-secondary btn-sm"
+        (click)="removeValueFromFilters(value)"
+      >
+        {{ value }}
         <i class="bi bi-x"></i>
-        </button>
-      </span>
+      </button>
+    </span>
   </div>
 </div>
 
-
 <div class="row mb-3">
-    <div class="col-md-3">
-      <label for="status">Status:</label>
-      <select class="form-select" id="status" (change)="onFilterChange($event)">
-        <option value="" [selected]>Select Status</option>
-        <option *ngFor="let status of statuses">{{ status }}</option>
-      </select>
-    </div>
-    <div class="col-md-3">
-      <label for="businessDate">Date:</label>
-      <select class="form-select" id="businessDate" (change)="onFilterChange($event)">
-        <option value="" [selected]>Pick Date</option>
-        <option *ngFor="let businessDate of businessDates">{{ businessDate }}</option>
-      </select>
-    </div>
-    <div class="col-md-3">
-      <label for="shift">Shift:</label>
-      <select class="form-select" id="shift"  (change)="onFilterChange($event)">
-        <option value="" [selected]>Select Shift</option>
-        <option *ngFor="let shift of shifts">{{ shift }}</option>
-      </select>
-    </div>
-    <div class="col-md-3">
-      <label for="area">Area:</label>
-      <select class="form-select" id="area"  (change)="onFilterChange($event)">
-        <option value="" [selected]>Select Area</option>
-        <option *ngFor="let area of areas">{{ area }}</option>
-      </select>
-    </div>
-    <br><br><br>
-    <hr>
-    <div class="col-md-12 text-center">
-      <button type="button" class="btn btn-outline-primary" (click)="resetFilters()">Reset Filters</button>
-    </div>
+  <div class="col-md-3">
+    <label for="status">Status:</label>
+    <select class="form-select" id="status" (change)="onFilterChange($event)">
+      <option value="" [selected]>Select Status</option>
+      <option *ngFor="let status of statuses">{{ status }}</option>
+    </select>
   </div>
- <hr>
+  <div class="col-md-3">
+    <label for="businessDate">Date:</label>
+    <select
+      class="form-select"
+      id="businessDate"
+      (change)="onFilterChange($event)"
+    >
+      <option value="" [selected]>Pick Date</option>
+      <option *ngFor="let businessDate of businessDates">
+        {{ businessDate }}
+      </option>
+    </select>
+  </div>
+  <div class="col-md-3">
+    <label for="shift">Shift:</label>
+    <select class="form-select" id="shift" (change)="onFilterChange($event)">
+      <option value="" [selected]>Select Shift</option>
+      <option *ngFor="let shift of shifts">{{ shift }}</option>
+    </select>
+  </div>
+  <div class="col-md-3">
+    <label for="area">Area:</label>
+    <select class="form-select" id="area" (change)="onFilterChange($event)">
+      <option value="" [selected]>Select Area</option>
+      <option *ngFor="let area of areas">{{ area }}</option>
+    </select>
+  </div>
+  <br /><br /><br />
+  <hr />
+  <div class="col-md-12 text-center">
+    <button
+      type="button"
+      class="btn btn-outline-primary"
+      (click)="resetFilters()"
+    >
+      Reset Filters
+    </button>
+  </div>
+</div>
+<hr />
