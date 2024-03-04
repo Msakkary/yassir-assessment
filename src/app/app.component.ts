@@ -18,17 +18,14 @@ export class AppComponent {
     apiServices.getReservations().subscribe((response: Reservation[]) => {
       this.reservations = response;
       this.filteredReservations = this.reservations;
-      console.log(this.reservations);
     });
   }
 
   filterReservations(filters: Filters) {
-    console.log(filters);
     this.filteredReservations = this.filterReservationsByFilters(
       this.reservations,
       filters
     );
-    console.log(this.filteredReservations);
   }
 
   filterReservationsByFilters(

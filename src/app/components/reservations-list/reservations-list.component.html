@@ -2,15 +2,15 @@
   <table class="table table-striped table-hover table-bordered align-middle">
     <thead>
       <tr>
-        <th [appSort]="reservationsList" data-order="desc" data-name="id">
+        <th class="sortable" [appSort]="reservationsList" data-order="asc" data-name="id">
           ID
         </th>
         <th>Business Date</th>
-        <th [appSort]="reservationsList" data-order="desc" data-name="status">Status</th>
-        <th  [appSort]="reservationsList" data-order="desc" data-name="shift">Shift</th>
-        <th [appSort]="reservationsList" data-order="desc" data-name="quantity">Guests</th>
-        <th [appSort]="reservationsList" data-order="desc" data-name="customer">Customer Name</th>
-        <th [appSort]="reservationsList" data-order="desc" data-name="area">Area</th>
+        <th class="sortable" [appSort]="reservationsList" data-order="asc" data-name="status">Status</th>
+        <th class="sortable" [appSort]="reservationsList" data-order="asc" data-name="shift">Shift</th>
+        <th class="sortable" [appSort]="reservationsList" data-order="asc" data-name="quantity">Guests</th>
+        <th class="sortable" [appSort]="reservationsList" data-order="asc" data-name="customer.firstName">Customer Name</th>
+        <th class="sortable" [appSort]="reservationsList" data-order="asc" data-name="area">Area</th>
         <th>Notes</th>
       </tr>
     </thead>

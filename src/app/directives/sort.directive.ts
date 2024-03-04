@@ -2,32 +2,46 @@ import { Directive, Input, ElementRef, HostListener } from '@angular/core';
 import { Sort } from '../util/sort';
 
 @Directive({
-  selector: '[appSort]'
+  selector: '[appSort]',
 })
 export class SortDirective {
-
   @Input() appSort: Array<any> = [];
-  constructor(private targetElem: ElementRef) { }
 
-  @HostListener("click")
+  constructor(private targetElem: ElementRef) {}
+
+  @HostListener('click')
   sortData() {
-    // Create Object of Sort Class
     const sort = new Sort();
-    // Get Reference Of Current Clicked Element
     const elem = this.targetElem.nativeElement;
-    // Get In WHich Order list should be sorted by default it should be set to desc on element attribute
-    const order = elem.getAttribute("data-order");
-    // Get The Property Type specially set [data-type=date] if it is date field
-    // const type = elem.getAttribute("data-type");
-    // Get The Property Name from Element Attribute
-    const property = elem.getAttribute("data-name");
-    if (order === "desc") {
-      this.appSort.sort(sort.startSort(property, order));
-      elem.setAttribute("data-order", "asc");
+
+    const order = elem.getAttribute('data-order');
+    const property = elem.getAttribute('data-name');
+
+    if (order === 'desc') {
+      this.appSort.sort(sort.startSort(property, 'asc'));
+      elem.setAttribute('data-order', 'asc');
+      this.resetSortIndicators(elem);
+      elem.classList.add('sort-asc');
+      elem.classList.remove('sort-desc');
+    } else {
+      this.appSort.sort(sort.startSort(property, 'desc'));
+      elem.setAttribute('data-order', 'desc');
+      this.resetSortIndicators(elem);
+      elem.classList.add('sort-desc');
+      elem.classList.remove('sort-asc');
     }
-    else {
-      this.appSort.sort(sort.startSort(property, order));
-      elem.setAttribute("data-order", "desc");
-    }
+  }
+
+  private resetSortIndicators(currentElem: HTMLElement) {
+    // Assuming you have a way to select all sorted columns, for example, by a shared class name 'sortable'
+    const sortableColumns =
+      this.targetElem.nativeElement.parentElement.querySelectorAll('.sortable');
+    sortableColumns.forEach((column: Element) => {
+      if (column !== currentElem) {
+        column.classList.remove('sort-asc', 'sort-desc');
+        // Optionally reset the data-order attribute to its initial state
+        column.setAttribute('data-order', 'asc'); // Adjust based on your default sort order
+      }
+    });
   }
 }

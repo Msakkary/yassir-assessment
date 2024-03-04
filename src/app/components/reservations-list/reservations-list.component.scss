@@ -1,0 +1,22 @@
+.sortable {
+    position: relative;
+    cursor: pointer;
+    padding-right: 20px;
+  }
+  
+  .sortable.sort-asc::after,
+  .sortable.sort-desc::after {
+    content: "";
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  
+  .sortable.sort-asc::after {
+    content: "▲"; /* Unicode for upward arrow */
+  }
+  
+  .sortable.sort-desc::after {
+    content: "▼"; /* Unicode for downward arrow */
+  }

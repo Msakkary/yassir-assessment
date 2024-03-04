@@ -1,32 +1,36 @@
 export class Sort {
+  private sortOrder = 1;
+  private collator = new Intl.Collator(undefined, {
+    numeric: true,
+    sensitivity: 'base',
+  });
 
-    private sortOrder = 1;
-    private collator = new Intl.Collator(undefined, {
-        numeric: true,
-        sensitivity: "base",
-    });
+  constructor() {}
 
-
-    constructor() {
+  public startSort(property: string, order: string) {
+    if (order === 'desc') {
+      this.sortOrder = -1;
+    } else {
+      this.sortOrder = 1; // Ensure sortOrder is reset for ascending order
     }
+    return (a: any, b: any) => {
+      // Handle nested properties
+      const aValue = this.getPropertyValue(a, property);
+      const bValue = this.getPropertyValue(b, property);
+      return this.collator.compare(aValue, bValue) * this.sortOrder;
+    };
+  }
 
-    public startSort(property: string | number, order: string) {
-        if (order === "desc") {
-            this.sortOrder = -1;
-        }
-        return (a: { [x: string]: string; }, b: { [x: string]: string; }) => {
-
-                return this.collator.compare(a[property], b[property]) * this.sortOrder;
-        }
+  private getPropertyValue(object: any, property: string): any {
+    const keys = property.split('.');
+    let value = object;
+    for (const key of keys) {
+      if (value[key] !== undefined) {
+        value = value[key];
+      } else {
+        return undefined; // or a value that makes sense for your comparison
+      }
     }
-
-    private sortData(a: number, b: number) {
-        if (a < b) {
-            return -1 * this.sortOrder;
-        } else if (a > b) {
-            return 1 * this.sortOrder;
-        } else {
-            return 0 * this.sortOrder;
-        }
-    }
+    return value;
+  }
 }
