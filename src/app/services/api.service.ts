@@ -16,11 +16,3 @@ export class ApiService {
     return this.http.get<Reservation[]>('http://localhost:3000/reservations');
   }
 }
-
-
-// return this.http.get<Reservation[]>('http://localhost:3000/reservations').subscribe(
-//   (response: Reservation[]) => {
-//     this.reservations = response;
-//     console.log(this.reservations);
-//   }
-// );

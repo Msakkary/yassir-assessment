@@ -29,25 +29,6 @@ export class AppComponent {
     this.filteredReservations = this.filterReservationsByFilters(this.reservations,filters)
   }
 
-  //  filterReservationsByFilters(reservations: Reservation[], filters: Filters): Reservation[] {
-  //   return reservations.filter(reservation => {
-  //     return Object.entries(filters).every(([key, filterValues]) => {
-  //       if (key === 'status' || key === 'shift' || key === 'area') {
-  //         // Check only for allowed keys in the reservation
-  //         const reservationValue = reservation[key as keyof Reservation];
-          
-  //         if (Array.isArray(filterValues)) {
-  //           // If it's an array, check if any of the values match
-  //           return filterValues.includes(reservationValue);
-  //         } else {
-  //           // If it's a string, check for an exact match
-  //           return filterValues === reservationValue;
-  //         }
-  //       }
-  //       return true; // Ignore unknown keys in filters
-  //     });
-  //   });
-  // }
 
   filterReservationsByFilters(reservations: Reservation[], filters: Filters): Reservation[] {
     return reservations.filter(reservation => {

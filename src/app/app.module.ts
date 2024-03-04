@@ -8,13 +8,15 @@ import { AppComponent } from './app.component';
 import { ReservationsListComponent } from './components/reservations-list/reservations-list.component';
 import { ReservationsFilterComponent } from './components/reservations-filter/reservations-filter.component';
 import { DataFilterPipe } from './pipes/data-filter.pipe';
+import { SortDirective } from './directives/sort.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
     ReservationsListComponent,
     ReservationsFilterComponent,
-    DataFilterPipe
+    DataFilterPipe,
+    SortDirective
   ],
   imports: [
     BrowserModule,

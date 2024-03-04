@@ -8,9 +8,12 @@ import { Reservation } from '../../interfaces/reservations';
 })
 export class ReservationsListComponent {
   @Input() reservationsList: Reservation[] = [];
+  mutatedReservationList: Reservation[] = []
+
   customerName: string = '';
 
   constructor(){
+    this.mutatedReservationList = this.reservationsList
   }
     
   trackById(index: number, item: Reservation): number {
