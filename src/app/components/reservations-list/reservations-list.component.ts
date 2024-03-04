@@ -1,5 +1,4 @@
-import { Component } from '@angular/core';
-import { ApiService } from '../../services/api.service';
+import { Component, Input } from '@angular/core';
 import { Reservation } from '../../interfaces/reservations';
 
 @Component({
@@ -8,16 +7,19 @@ import { Reservation } from '../../interfaces/reservations';
   styleUrl: './reservations-list.component.scss'
 })
 export class ReservationsListComponent {
-  reservations: Reservation[] = [];
+  @Input() reservationsList: Reservation[] = [];
+  customerName: string = '';
 
-
-  constructor(apiServices: ApiService){
-    apiServices.getReservations().subscribe(
-      (response: Reservation[]) => {
-        this.reservations = response;
-        console.log(this.reservations);
-      }
-    );
+  constructor(){
+  }
+    
+  trackById(index: number, item: Reservation): number {
+    return item.id;
+  }
+  
+ onSearchChange(event: any) {
+  console.log(event.target.value)
+    this.customerName = event.target.value;
   }
 
 }

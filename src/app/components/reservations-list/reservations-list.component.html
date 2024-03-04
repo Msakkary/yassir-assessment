@@ -1,4 +1,11 @@
-<p>reservations-list works!</p>
+<div class="row mb-3">
+  <div class="col-md-6">
+    <label for="customerName">Search by Name and Surname:</label>
+    <input type="text" [(ngModel)]="customerName" class="form-control" id="customerName" placeholder="Enter name and surname" (keyup)="onSearchChange($event)">
+  </div>
+</div>
+
+
 
 <div class="table-responsive">
     <table class="table table-striped table-hover table-bordered align-middle">
@@ -14,17 +21,15 @@
           </tr>
         </thead>
         <tbody>
-          @for (reservation of reservations; track reservation.id) {
-            <tr>
-                <td>{{ reservation.id }}</td>
-                <td>{{ reservation.businessDate }}</td>
-                <td>{{ reservation.status|titlecase }}</td>
-                <td>{{ reservation.shift|titlecase }}</td>
-                <td>{{ reservation.quantity }} Person/s</td>
-                <td>{{ reservation.customer.firstName }} {{ reservation.customer.lastName }}</td>
-                <td>{{ reservation.area |titlecase}}</td>
-              </tr>
-          }  
+          <tr *ngFor="let reservation of reservationsList |dataFilter: customerName ;trackBy: trackById; let i = index;">
+            <td>{{ reservation.id }}</td>
+            <td>{{ reservation.businessDate }}</td>
+            <td>{{ reservation.status | titlecase }}</td>
+            <td>{{ reservation.shift | titlecase }}</td>
+            <td>{{ reservation.quantity }} Person/s</td>
+            <td>{{ reservation.customer.firstName }} {{ reservation.customer.lastName }}</td>
+            <td>{{ reservation.area | titlecase }}</td>
+          </tr>
         </tbody>
     </table>
 </div>
