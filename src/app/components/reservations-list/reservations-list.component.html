@@ -6,11 +6,11 @@
           ID
         </th>
         <th>Business Date</th>
-        <th>Status</th>
-        <th>Shift</th>
-        <th>Guests</th>
-        <th>Customer Name</th>
-        <th>Area</th>
+        <th [appSort]="reservationsList" data-order="desc" data-name="status">Status</th>
+        <th  [appSort]="reservationsList" data-order="desc" data-name="shift">Shift</th>
+        <th [appSort]="reservationsList" data-order="desc" data-name="quantity">Guests</th>
+        <th [appSort]="reservationsList" data-order="desc" data-name="customer">Customer Name</th>
+        <th [appSort]="reservationsList" data-order="desc" data-name="area">Area</th>
         <th>Notes</th>
       </tr>
     </thead>
