@@ -1,12 +1,3 @@
-<div class="row mb-3">
-  <div class="col-md-6">
-    <label for="customerName">Search by Name and Surname:</label>
-    <input type="text" [(ngModel)]="customerName" class="form-control" id="customerName" placeholder="Enter name and surname" (keyup)="onSearchChange($event)">
-  </div>
-</div>
-
-
-
 <div class="table-responsive">
     <table class="table table-striped table-hover table-bordered align-middle">
         <thead>
@@ -22,7 +13,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let reservation of reservationsList | dataFilter: customerName ;trackBy: trackById; let i = index;">
+          <tr *ngFor="let reservation of reservationsList; trackBy: trackById; let i = index;">
             <td>{{ reservation.id }}</td>
             <td>{{ reservation.businessDate }}</td>
             <td>{{ reservation.status | titlecase }}</td>

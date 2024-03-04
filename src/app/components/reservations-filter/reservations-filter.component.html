@@ -1,4 +1,11 @@
 <div class="row mb-3">
+  <div class="col-md-6">
+    <label for="customerName">Search by Name and Surname:</label>
+    <input type="text" [(ngModel)]="customerName" class="form-control" id="customerName" placeholder="Enter name and surname" (keyup)="onFilterChange($event)">
+  </div>
+</div>
+
+<div class="row mb-3">
     <div class="col-md-3">
       <label for="status">Status:</label>
       <select class="form-select" id="status"  (change)="onFilterChange($event)">

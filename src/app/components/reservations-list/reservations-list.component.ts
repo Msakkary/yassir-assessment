@@ -8,21 +8,14 @@ import { Reservation } from '../../interfaces/reservations';
 })
 export class ReservationsListComponent {
   @Input() reservationsList: Reservation[] = [];
-  mutatedReservationList: Reservation[] = []
 
-  customerName: string = '';
 
-  constructor(){
-    this.mutatedReservationList = this.reservationsList
-  }
+  constructor(){}
     
   trackById(index: number, item: Reservation): number {
     return item.id;
   }
   
- onSearchChange(event: any) {
-  console.log(event.target.value)
-    this.customerName = event.target.value;
-  }
+
 
 }

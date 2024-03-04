@@ -33,30 +33,40 @@ export class AppComponent {
   filterReservationsByFilters(reservations: Reservation[], filters: Filters): Reservation[] {
     return reservations.filter(reservation => {
       return Object.entries(filters).every(([key, filterValues]) => {
-        // Check only for allowed keys in the reservation
-        if (key === 'status' || key === 'shift' || key === 'area' || key === 'businessDate') {
-          const reservationValue = reservation[key as keyof Reservation];
+        if (key === 'status' || key === 'shift' || key === 'area' || key === 'businessDate' || key === 'customerName') {
+          if (key === 'customerName' && Array.isArray(filterValues)) {
+            // If filtering by customerName and filterValues is an array
+            const [nameFilter] = filterValues;
+            const { firstName, lastName } = reservation.customer;
   
-          if (Array.isArray(filterValues)) {
-            // If it's an array, check if any of the values match
-            return filterValues.some(value => {
-              if (Array.isArray(reservationValue)) {
-                // If the reservation value is an array, check if any of its values match
-                return reservationValue.includes(value);
-              } else {
-                // If the reservation value is a string, check for an exact match
-                return value === reservationValue;
-              }
-            });
+            const fullName = `${firstName} ${lastName}`;
+            const fullNameLowerCase = fullName.toLowerCase();
+            const nameFilterLowerCase = nameFilter.toLowerCase();
+  
+            return fullNameLowerCase.includes(nameFilterLowerCase);
           } else {
-            // If it's a string, check for an exact match
-            return filterValues === reservationValue;
+            // For other keys or non-array values
+            const reservationValue = reservation[key as keyof Reservation];
+  
+            if (Array.isArray(filterValues)) {
+              return filterValues.some(value => {
+                if (Array.isArray(reservationValue)) {
+                  return reservationValue.includes(value);
+                } else {
+                  return value === reservationValue;
+                }
+              });
+            } else {
+              return filterValues === reservationValue;
+            }
           }
         }
+  
         return true; // Ignore unknown keys in filters
       });
     });
   }
+  
 
 }
   

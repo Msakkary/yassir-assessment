@@ -18,6 +18,7 @@ export class ReservationsFilterComponent {
 
   filters: Filters = {};
   reservations: Reservation[] = [];
+  customerName: any;
 
   constructor( apiServices: ApiService){
     apiServices.getReservations().subscribe(
@@ -43,8 +44,13 @@ export class ReservationsFilterComponent {
    pushValueToFilters(filters: Filters, key: string, value: string): Filters {
     // Use 'as keyof Filters' to assert that the key is a valid key of Filters
     const typedKey = key as keyof Filters;
+    console.log(typedKey);
+    console.log(key);
 
-    if (filters[typedKey]) {
+    if (filters[typedKey] && key === 'customerName') {
+      // If the key already exists, push the new value to the existing array
+      filters[typedKey] = [value];
+    } else if (filters[typedKey] && key !== 'customerName') {
       // If the key already exists, push the new value to the existing array
       filters[typedKey]?.push(value);
     } else {
