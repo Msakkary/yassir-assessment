@@ -13,16 +13,21 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let reservation of reservationsList; trackBy: trackById; let i = index;">
-            <td>{{ reservation.id }}</td>
-            <td>{{ reservation.businessDate }}</td>
-            <td>{{ reservation.status | titlecase }}</td>
-            <td>{{ reservation.shift | titlecase }}</td>
-            <td>{{ reservation.quantity }} Person/s</td>
-            <td>{{ reservation.customer.firstName }} {{ reservation.customer.lastName }}</td>
-            <td>{{ reservation.area | titlecase }}</td>
-            <td>{{ reservation.guestNotes }}</td>
-          </tr>
+          @for (reservation of reservationsList; track reservation.id) {
+            <tr>
+              <td>{{ reservation.id }}</td>
+              <td>{{ reservation.businessDate }}</td>
+              <td>{{ reservation.status | titlecase }}</td>
+              <td>{{ reservation.shift | titlecase }}</td>
+              <td>{{ reservation.quantity }} Person/s</td>
+              <td>{{ reservation.customer.firstName }} {{ reservation.customer.lastName }}</td>
+              <td>{{ reservation.area | titlecase }}</td>
+              <td>{{ reservation.guestNotes }}</td>
+            </tr>
+          } @empty {
+            <hr>
+            <h3>There are no data matching your searching crieteia</h3>
+          }
         </tbody>
     </table>
 </div>

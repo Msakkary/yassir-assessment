@@ -26,7 +26,8 @@ export class AppComponent {
 
   filterReservations(filters: Filters){
     console.log(filters);
-    this.filteredReservations = this.filterReservationsByFilters(this.reservations,filters)
+    this.filteredReservations = this.filterReservationsByFilters(this.reservations,filters);
+    console.log(this.filteredReservations)
   }
 
 
@@ -34,8 +35,8 @@ export class AppComponent {
     return reservations.filter(reservation => {
       return Object.entries(filters).every(([key, filterValues]) => {
         if (key === 'status' || key === 'shift' || key === 'area' || key === 'businessDate' || key === 'customerName') {
-          if (key === 'customerName' && Array.isArray(filterValues)) {
-            // If filtering by customerName and filterValues is an array
+          if (key === 'customerName' && Array.isArray(filterValues) && filterValues.length > 0) {
+            // If filtering by customerName and filterValues is a non-empty array
             const [nameFilter] = filterValues;
             const { firstName, lastName } = reservation.customer;
   
@@ -48,7 +49,7 @@ export class AppComponent {
             // For other keys or non-array values
             const reservationValue = reservation[key as keyof Reservation];
   
-            if (Array.isArray(filterValues)) {
+            if (Array.isArray(filterValues) && filterValues.length > 0) {
               return filterValues.some(value => {
                 if (Array.isArray(reservationValue)) {
                   return reservationValue.includes(value);
@@ -56,7 +57,7 @@ export class AppComponent {
                   return value === reservationValue;
                 }
               });
-            } else {
+            } else if (!Array.isArray(filterValues) && filterValues !== undefined) {
               return filterValues === reservationValue;
             }
           }
@@ -66,6 +67,7 @@ export class AppComponent {
       });
     });
   }
+  
   
 
 }
