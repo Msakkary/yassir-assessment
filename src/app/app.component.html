@@ -1,4 +1,9 @@
 <div class="container">
-  <app-reservations-filter/>
-  <app-reservations-list/>
+  <hr>
+  <hr>
+  <h1 class="text-center">Yassir Challange</h1>
+  <hr>
+  <hr>
+  <app-reservations-filter (filtersChange)="filterReservations($event)" />
+  <app-reservations-list [reservationsList]="filteredReservations"></app-reservations-list>
 </div>

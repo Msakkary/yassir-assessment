@@ -13,3 +13,10 @@ export interface Reservation {
     area: string;
     guestNotes: string;
   }
+
+  export interface Filters {
+    status?: string[];
+    shift?: string[];
+    area?: string[];
+    businessDate?: string[];
+  }
