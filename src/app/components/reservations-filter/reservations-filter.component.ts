@@ -41,12 +41,17 @@ export class ReservationsFilterComponent {
   }
 
   onFilterChange(event: any) {
-    this.filters = this.pushValueToFilters(
-      this.filters,
-      event.target.id,
-      event.target.value
-    );
+    const selectedValue = event.target.value;
+    const selectedId = event.target.id;
+  
+    this.filters = this.pushValueToFilters(this.filters, selectedId, selectedValue);
     this.filtersChange.emit(this.filters);
+  
+    // Update the selected value in the dropdown to the first option
+    const dropdownElement = document.getElementById(selectedId) as HTMLSelectElement;
+    if (dropdownElement) {
+      dropdownElement.value = dropdownElement.options[0].value; // Assuming the first option is at index 1 (skip the disabled option)
+    }
   }
 
   getAllValues(): string[] {

@@ -9,7 +9,6 @@ import { Filters, Reservation } from './interfaces/reservations';
 })
 export class AppComponent {
   title = 'yassir-assessment';
-
   reservations: Reservation[] = [];
   filteredReservations: Reservation[] = [];
   filters: Filters = {};
@@ -22,13 +21,15 @@ export class AppComponent {
   }
 
   filterReservations(filters: Filters) {
-    this.filteredReservations = this.filterReservationsByFilters(
+    console.log(filters);
+    this.filteredReservations = this.filterReservationsByKeyword(
       this.reservations,
       filters
     );
+    console.log(this.filteredReservations);
   }
 
-  filterReservationsByFilters(
+  filterReservationsByKeyword(
     reservations: Reservation[],
     filters: Filters
   ): Reservation[] {
@@ -58,7 +59,6 @@ export class AppComponent {
           } else {
             // For other keys or non-array values
             const reservationValue = reservation[key as keyof Reservation];
-
             if (Array.isArray(filterValues) && filterValues.length > 0) {
               return filterValues.some((value) => {
                 if (Array.isArray(reservationValue)) {

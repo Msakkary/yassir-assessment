@@ -15,8 +15,9 @@ export interface Reservation {
 }
 
 export interface Filters {
-  status?: string[] | undefined;
-  shift?: string[] | undefined;
-  area?: string[] | undefined;
-  businessDate?: string[] | undefined;
+  status?: string[];
+  shift?: string[];
+  area?: string[];
+  businessDate?: string[];
+  customerName?: string[];
 }

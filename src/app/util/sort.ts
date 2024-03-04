@@ -21,6 +21,7 @@ export class Sort {
     };
   }
 
+  // Handle special case of the customer nested key
   private getPropertyValue(object: any, property: string): any {
     const keys = property.split('.');
     let value = object;

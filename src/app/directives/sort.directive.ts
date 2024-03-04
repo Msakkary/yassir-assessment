@@ -13,7 +13,6 @@ export class SortDirective {
   sortData() {
     const sort = new Sort();
     const elem = this.targetElem.nativeElement;
-
     const order = elem.getAttribute('data-order');
     const property = elem.getAttribute('data-name');
 

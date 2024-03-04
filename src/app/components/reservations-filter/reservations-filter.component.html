@@ -1,6 +1,6 @@
 <div class="row mb-3">
   <div class="col-md-12">
-    <label for="customerName">Search by Name and Surname:</label>
+    <label for="customerName">Search by Firstname or Lastname</label>
     <input
       type="text"
       [(ngModel)]="customerName"
@@ -14,7 +14,7 @@
 
 <div class="row">
   <div class="col-md-12">
-    <h5>Tags</h5>
+    <h5>Filtering Tags</h5>
     <span *ngFor="let value of getAllValues()" style="padding-right: 5px">
       <button
         type="button"
@@ -32,7 +32,7 @@
   <div class="col-md-3">
     <label for="status">Status:</label>
     <select class="form-select" id="status" (change)="onFilterChange($event)">
-      <option value="" [selected]>Select Status</option>
+      <option value=""  [selected]>Select Status</option>
       <option *ngFor="let status of statuses">{{ status }}</option>
     </select>
   </div>
@@ -43,7 +43,7 @@
       id="businessDate"
       (change)="onFilterChange($event)"
     >
-      <option value="" [selected]>Pick Date</option>
+      <option value=""   [selected]>Pick Date</option>
       <option *ngFor="let businessDate of businessDates">
         {{ businessDate }}
       </option>
@@ -52,17 +52,18 @@
   <div class="col-md-3">
     <label for="shift">Shift:</label>
     <select class="form-select" id="shift" (change)="onFilterChange($event)">
-      <option value="" [selected]>Select Shift</option>
+      <option value=""   [selected]>Select Shift</option>
       <option *ngFor="let shift of shifts">{{ shift }}</option>
     </select>
   </div>
   <div class="col-md-3">
     <label for="area">Area:</label>
     <select class="form-select" id="area" (change)="onFilterChange($event)">
-      <option value="" [selected]>Select Area</option>
+      <option value=""   [selected]>Select Area</option>
       <option *ngFor="let area of areas">{{ area }}</option>
     </select>
   </div>
+
   <br /><br /><br />
   <hr />
   <div class="col-md-12 text-center">
