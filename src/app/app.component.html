@@ -1,11 +1,12 @@
-<div class="container">
-  <hr />
-  <hr />
-  <h1 class="text-center">Yassir Challange</h1>
-  <hr />
-  <hr />
-  <app-reservations-filter (filtersChange)="filterReservations($event)" />
-  <app-reservations-list
-    [reservationsList]="filteredReservations"
-  ></app-reservations-list>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-3 filters">
+      <app-reservations-filter (filtersChange)="filterReservations($event)" />
+    </div>
+    <div class="col-md-9 list px-3 py-5">
+      <app-reservations-list
+      [reservationsList]="filteredReservations"
+    ></app-reservations-list>
+    </div>
+  </div>
 </div>

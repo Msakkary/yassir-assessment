@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { NgModel } from '@angular/forms';
 import { Filters, Reservation } from '../../interfaces/reservations';
 import { ApiService } from '../../services/api.service';
+
 
 @Component({
   selector: 'app-reservations-filter',
@@ -15,7 +15,6 @@ export class ReservationsFilterComponent {
   shifts: string[] = [];
   areas: string[] = [];
   businessDates: string[] = [];
-
   filters: Filters = {};
 
   reservations: Reservation[] = [];
@@ -69,7 +68,6 @@ export class ReservationsFilterComponent {
         }
       }
     });
-
     return allValues;
   }
 
@@ -78,6 +76,10 @@ export class ReservationsFilterComponent {
     this.customerName = '';
     // Call any function to fetch or reload the original data
     this.filtersChange.emit(this.filters);
+  }
+
+  clearSearch() {
+    this.customerName = '';
   }
 
   removeValueFromFilters(value: string): void {

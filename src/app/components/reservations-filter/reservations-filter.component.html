@@ -1,79 +1,102 @@
-<div class="row mb-3">
-  <div class="col-md-12">
-    <label for="customerName">Search by Firstname or Lastname</label>
-    <input
-      type="text"
-      [(ngModel)]="customerName"
-      class="form-control"
-      id="customerName"
-      placeholder="Enter fistname or surname"
-      (keyup)="onFilterChange($event)"
-    />
+<aside class="reservationFilters p-3 text-light">
+  <div class="row text-center">
+    <div class="col mb-4">
+      <img src="/assets/logo.svg" class="img-fluid rounded-top" alt="" />
+    </div>
+    <hr />
   </div>
-</div>
 
-<div class="row">
-  <div class="col-md-12">
-    <h5>Filtering Tags</h5>
-    <span *ngFor="let value of getAllValues()" style="padding-right: 5px">
-      <button
-        type="button"
-        class="btn btn-outline-secondary btn-sm"
-        (click)="removeValueFromFilters(value)"
+  <div class="row mb-3">
+    <div class="col">
+      <label for="customerName">Search by Guest Name</label>
+      <div class="input-group">
+        <input
+          type="text"
+          [(ngModel)]="customerName"
+          class="form-control"
+          id="customerName"
+          placeholder="Enter fistname or surname"
+          (keyup)="onFilterChange($event)"
+        />
+        <div class="input-group-text"><i class="text-primary fas fa-search"></i></div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <label for="status">Reservation Status</label>
+      <select class="form-select" id="status" (change)="onFilterChange($event)">
+        <option value="" [selected]>Select Status</option>
+        <option *ngFor="let status of statuses">{{ status }}</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <label for="businessDate">Reservation Date</label>
+      <select
+        class="form-select"
+        id="businessDate"
+        (change)="onFilterChange($event)"
       >
-        {{ value }}
-        <i class="bi bi-x"></i>
-      </button>
-    </span>
-  </div>
-</div>
-
-<div class="row mb-3">
-  <div class="col-md-3">
-    <label for="status">Status:</label>
-    <select class="form-select" id="status" (change)="onFilterChange($event)">
-      <option value=""  [selected]>Select Status</option>
-      <option *ngFor="let status of statuses">{{ status }}</option>
-    </select>
-  </div>
-  <div class="col-md-3">
-    <label for="businessDate">Date:</label>
-    <select
-      class="form-select"
-      id="businessDate"
-      (change)="onFilterChange($event)"
-    >
-      <option value=""   [selected]>Pick Date</option>
-      <option *ngFor="let businessDate of businessDates">
-        {{ businessDate }}
-      </option>
-    </select>
-  </div>
-  <div class="col-md-3">
-    <label for="shift">Shift:</label>
-    <select class="form-select" id="shift" (change)="onFilterChange($event)">
-      <option value=""   [selected]>Select Shift</option>
-      <option *ngFor="let shift of shifts">{{ shift }}</option>
-    </select>
-  </div>
-  <div class="col-md-3">
-    <label for="area">Area:</label>
-    <select class="form-select" id="area" (change)="onFilterChange($event)">
-      <option value=""   [selected]>Select Area</option>
-      <option *ngFor="let area of areas">{{ area }}</option>
-    </select>
+        <option value="" [selected]>Pick Date</option>
+        <option *ngFor="let businessDate of businessDates">
+          {{ businessDate }}
+        </option>
+      </select>
+    </div>
   </div>
 
-  <br /><br /><br />
+  <div class="row">
+    <div class="col">
+      <label for="shift">Shift</label>
+      <select class="form-select" id="shift" (change)="onFilterChange($event)">
+        <option value="" [selected]>Select Shift</option>
+        <option *ngFor="let shift of shifts">{{ shift }}</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <label for="area">Area</label>
+      <select class="form-select" id="area" (change)="onFilterChange($event)">
+        <option value="" [selected]>Select Area</option>
+        <option *ngFor="let area of areas">{{ area }}</option>
+      </select>
+    </div>
+  </div>
+
   <hr />
-  <div class="col-md-12 text-center">
-    <button
-      type="button"
-      class="btn btn-outline-primary"
-      (click)="resetFilters()"
-    >
-      Reset Filters
-    </button>
+  @if (getAllValues().length > 0) {
+  <div class="row">
+    <div class="col">
+      <h4>
+        Filters Tags
+        <button
+          type="button"
+          class="btn btn-danger float-end rounded-pill"
+          (click)="resetFilters()"
+        >
+          Reset All <i class="fa-solid fa-rotate-right"></i>
+        </button>
+      </h4>
+    </div>
+    <div class="col-md-12 mt-1">
+      <span class="chips" *ngFor="let value of getAllValues()">
+        <button
+          type="button"
+          class="btn btn-warning btn-sm rounded-pill"
+          (click)="removeValueFromFilters(value)"
+        >
+          {{ value }}
+          <i class="fas fa-xmark"></i>
+        </button>
+      </span>
+    </div>
   </div>
-</div>
-<hr />
+  }
+</aside>

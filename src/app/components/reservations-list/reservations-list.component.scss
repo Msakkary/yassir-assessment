@@ -1,7 +1,7 @@
 .sortable {
     position: relative;
     cursor: pointer;
-    padding-right: 20px;
+    padding: 10px 25px 10px 20px;
   }
   
   .sortable.sort-asc::after,
@@ -14,9 +14,11 @@
   }
   
   .sortable.sort-asc::after {
-    content: "▲"; /* Unicode for upward arrow */
+    font-family: "Font Awesome 5 Free";
+    content: "\f062";
   }
   
   .sortable.sort-desc::after {
-    content: "▼"; /* Unicode for downward arrow */
+    font-family: "Font Awesome 5 Free";
+    content: "\f063";
   }
