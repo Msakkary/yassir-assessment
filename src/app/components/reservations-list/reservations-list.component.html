@@ -10,20 +10,40 @@
   <table class="shadow table table-striped table-hover table-group-divider table-bordered align-middle text-center">
     <thead>
       <tr>
-        <th class="sortable" [appSort]="reservationsList" data-order="asc" data-name="id">
+        <th class="sortable" (click)="sortData('id')">
           ID
+          <span class="sort-indicator" [ngClass]="{'sort-asc': sortColumn === 'id' && sortOrder === 'asc', 'sort-desc': sortColumn === 'id' && sortOrder === 'desc'}"></span>
         </th>
-        <th class="sortable" [appSort]="reservationsList" data-order="asc" data-name="businessDate">Business Date</th>
-        <th class="sortable" [appSort]="reservationsList" data-order="asc" data-name="status">Status</th>
-        <th class="sortable" [appSort]="reservationsList" data-order="asc" data-name="shift">Shift</th>
-        <th class="sortable" [appSort]="reservationsList" data-order="asc" data-name="quantity">Guests</th>
-        <th class="sortable" [appSort]="reservationsList" data-order="asc" data-name="customer.firstName">Customer Name</th>
-        <th class="sortable" [appSort]="reservationsList" data-order="asc" data-name="area">Area</th>
+        <th class="sortable" (click)="sortData('businessDate')">
+          Business Date
+          <span class="sort-indicator" [ngClass]="{'sort-asc': sortColumn === 'businessDate' && sortOrder === 'asc', 'sort-desc': sortColumn === 'businessDate' && sortOrder === 'desc'}"></span>
+        </th>
+        <th class="sortable" (click)="sortData('status')">
+          Status
+          <span class="sort-indicator" [ngClass]="{'sort-asc': sortColumn === 'status' && sortOrder === 'asc', 'sort-desc': sortColumn === 'status' && sortOrder === 'desc'}"></span>
+        </th>
+        <th class="sortable" (click)="sortData('shift')">
+          Shift
+          <span class="sort-indicator" [ngClass]="{'sort-asc': sortColumn === 'shift' && sortOrder === 'asc', 'sort-desc': sortColumn === 'shift' && sortOrder === 'desc'}"></span>
+        </th>
+        <th class="sortable" (click)="sortData('quantity')">
+          Guests
+          <span class="sort-indicator" [ngClass]="{'sort-asc': sortColumn === 'quantity' && sortOrder === 'asc', 'sort-desc': sortColumn === 'quantity' && sortOrder === 'desc'}"></span>
+        </th>
+        <th class="sortable" (click)="sortData('customer.firstName')">
+          Customer Name
+          <span class="sort-indicator" [ngClass]="{'sort-asc': sortColumn === 'customer.firstName' && sortOrder === 'asc', 'sort-desc': sortColumn === 'customer.firstName' && sortOrder === 'desc'}"></span>
+        </th>
+        <th class="sortable" (click)="sortData('area')">
+          Area
+          <span class="sort-indicator" [ngClass]="{'sort-asc': sortColumn === 'area' && sortOrder === 'asc', 'sort-desc': sortColumn === 'area' && sortOrder === 'desc'}"></span>
+        </th>
         <th>Notes</th>
       </tr>
     </thead>
+    
     <tbody>
-      @for (reservation of reservationsList; track reservation.id) {
+      @for (reservation of reservationsList; track $index) {
       <tr>
         <td>{{ reservation.id }}</td>
         <td>{{ reservation.businessDate }}</td>

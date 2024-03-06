@@ -76,7 +76,7 @@
   </div>
 
   <hr />
-  @if (getAllValues().length > 0) {
+  @if (getAllValuesOfFilters().length > 0) {
   <div class="row fade-in">
     <div class="col">
       <h4>
@@ -91,7 +91,7 @@
       </h4>
     </div>
     <div class="col-md-12 mt-1">
-      <span class="chips fade-in" *ngFor="let value of getAllValues()">
+      <span class="chips fade-in" *ngFor="let value of getAllValuesOfFilters()">
         <button
           type="button"
           class="btn btn-warning btn-sm rounded-pill"

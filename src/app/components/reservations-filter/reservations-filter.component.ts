@@ -3,11 +3,11 @@
  * ReservationsFilterComponent is an Angular component responsible for managing and displaying
  * filters for reservations in the Yassir Assessment application.
  */
-
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component } from '@angular/core';
 import { Reservation } from '../../interfaces/reservations';
 import { Filters } from '../../interfaces/filters';
 import { ApiService } from '../../services/api.service';
+import { StoreService } from '../../services/store.service';
 
 @Component({
   selector: 'app-reservations-filter',
@@ -15,7 +15,6 @@ import { ApiService } from '../../services/api.service';
   styleUrls: ['./reservations-filter.component.scss'],
 })
 export class ReservationsFilterComponent {
-  @Output() filtersChange = new EventEmitter(); // Event emitter to notify parent component about filter changes
 
   statuses: string[] = []; // Array to store unique reservation status values
   shifts: string[] = []; // Array to store unique reservation shift values
@@ -28,10 +27,11 @@ export class ReservationsFilterComponent {
   /**
    * Constructor for ReservationsFilterComponent.
    * @param apiServices - Instance of the ApiService for fetching reservations from the API.
+   * @param storeService - Instance of the StoreService for managing reservations data.
    */
-  constructor(apiServices: ApiService) {
+  constructor(private apiServices: ApiService, private storeService: StoreService) {
     // Fetch reservations from the API and initialize the filter dropdown values
-    apiServices.getReservations().subscribe((response: Reservation[]) => {
+    this.apiServices.getReservations().subscribe((response: Reservation[]) => {
       this.reservations = response;
       this.initializeFilterDropdowns();
     });
@@ -49,7 +49,7 @@ export class ReservationsFilterComponent {
     this.filters = this.pushValueToFilters(this.filters, selectedId, selectedValue);
 
     // Emit the updated filters to the parent component
-    this.filtersChange.emit(this.filters);
+    this.storeService.updateFilters(this.filters, this.reservations);
 
     // Update the selected value in the dropdown to the first option
     if (selectedId !== 'customerName') {
@@ -66,9 +66,8 @@ export class ReservationsFilterComponent {
    * Retrieves all values from the filters object.
    * @returns - Array of all values from the filters object.
    */
-  getAllValues(): string[] {
+  getAllValuesOfFilters(): string[] {
     const allValues: string[] = [];
-
     Object.values(this.filters).forEach((value) => {
       if (
         value &&
@@ -89,9 +88,8 @@ export class ReservationsFilterComponent {
    */
   resetFilters(): void {
     this.filters = {}; // Reset filters to an empty object or provide default values
-    this.customerName = '';
-    // Emit the updated filters to the parent component
-    this.filtersChange.emit(this.filters);
+    this.clearSearch();
+    this.storeService.updateFilters(this.filters, this.reservations);
   }
 
   /**
@@ -105,8 +103,7 @@ export class ReservationsFilterComponent {
       // Clear the customerName filter in the Filters object
       this.filters.customerName = [];
       
-      // Emit the updated filters to the parent component
-      this.filtersChange.emit(this.filters);
+      this.storeService.updateFilters(this.filters, this.reservations);
     }
   }
 
@@ -126,8 +123,9 @@ export class ReservationsFilterComponent {
       }
     });
     // Emit the updated filters to the parent component
-    this.filtersChange.emit(this.filters);
+    this.storeService.updateFilters(this.filters, this.reservations);
   }
+
 
   /**
    * Adds a value to the filters object.
@@ -136,7 +134,7 @@ export class ReservationsFilterComponent {
    * @param value - The value to be added to the filter.
    * @returns - The updated filters object.
    */
-  pushValueToFilters(filters: Filters, key: string, value: string): Filters {
+  private pushValueToFilters(filters: Filters, key: string, value: string): Filters {
     // Use 'as keyof Filters' to assert that the key is a valid key of Filters
     const typedKey = key as keyof Filters;
 
@@ -155,7 +153,6 @@ export class ReservationsFilterComponent {
       // If the key doesn't exist, create a new array with the value
       filters[typedKey] = [value];
     }
-
     return filters;
   }
 

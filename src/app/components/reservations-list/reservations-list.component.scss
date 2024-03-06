@@ -4,8 +4,8 @@
     padding: 10px 25px 10px 20px;
   }
   
-  .sortable.sort-asc::after,
-  .sortable.sort-desc::after {
+  .sortable .sort-asc::after,
+  .sortable .sort-desc::after {
     content: "";
     position: absolute;
     right: 5px;
@@ -13,12 +13,12 @@
     transform: translateY(-50%);
   }
   
-  .sortable.sort-asc::after {
+  .sortable .sort-asc::after {
     font-family: "Font Awesome 5 Free";
     content: "\f062";
   }
   
-  .sortable.sort-desc::after {
+  .sortable .sort-desc::after {
     font-family: "Font Awesome 5 Free";
     content: "\f063";
   }
