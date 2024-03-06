@@ -32,6 +32,12 @@ export class AppComponent {
       this.reservations = response;
       this.storeService.updateReservations(this.reservations);
     });
+
+    console.log('%c🚀 Breaking News: Code Prodigy Detected!', 'color: #00bfff; font-size: 16px; font-weight: bold;');
+console.log('%cCaution: This code is armed with wit, fortified with expertise, and sprinkled with a dash of genius. Proceed with admiration! 💻✨', 'color: #EEE; font-size: 14px;');
+
   }
+
+  
 
 }

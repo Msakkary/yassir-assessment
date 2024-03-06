@@ -7,7 +7,9 @@
     #6154cd,
     #6656c5
   );
-  min-height: 100vh;
+  @media (min-width: 768px) {
+    min-height: 100vh;
+  }
 }
 
 .container-fluid {

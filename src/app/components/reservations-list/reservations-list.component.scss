@@ -1,24 +1,36 @@
 .sortable {
-    position: relative;
-    cursor: pointer;
-    padding: 10px 25px 10px 20px;
+  position: relative;
+  cursor: pointer;
+  padding: 10px 25px 10px 20px;
+  vertical-align: middle;
+}
+
+.sortable .sort-asc::after,
+.sortable .sort-desc::after {
+  content: "";
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.sortable .sort-asc::after {
+  font-family: "Font Awesome 5 Free";
+  content: "\f062";
+}
+
+.sortable .sort-desc::after {
+  font-family: "Font Awesome 5 Free";
+  content: "\f063";
+}
+
+@media (max-width: 768px) {
+  h3 {
+    text-align: center;
+    .badge {
+      display: block;
+      float: none !important;
+      margin-top: 5px;
+    }
   }
-  
-  .sortable .sort-asc::after,
-  .sortable .sort-desc::after {
-    content: "";
-    position: absolute;
-    right: 5px;
-    top: 50%;
-    transform: translateY(-50%);
-  }
-  
-  .sortable .sort-asc::after {
-    font-family: "Font Awesome 5 Free";
-    content: "\f062";
-  }
-  
-  .sortable .sort-desc::after {
-    font-family: "Font Awesome 5 Free";
-    content: "\f063";
-  }
+}
