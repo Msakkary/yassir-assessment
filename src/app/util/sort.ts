@@ -19,13 +19,25 @@ export class Sort {
     if (order === 'desc') {
       this.sortOrder = -1;
     } else {
-      this.sortOrder = 1; // Ensure sortOrder is reset for ascending order
+      this.sortOrder = 1;
     }
+  
+    /**
+     * Sorting function to be used with the `Array.sort` method.
+     * @param a - The first object for comparison.
+     * @param b - The second object for comparison.
+     * @returns A number indicating the order of the objects in the sorted array.
+     */
     return (a: any, b: any) => {
       // Handle nested properties
       const aValue = this.getPropertyValue(a, property);
       const bValue = this.getPropertyValue(b, property);
-
+  
+      // Check if the nested property exists
+      if (aValue === undefined || bValue === undefined) {
+        return 0; // or handle the case where the property is missing
+      }
+  
       // Compare values based on type
       if (typeof aValue === 'number' && typeof bValue === 'number') {
         // Numeric comparison

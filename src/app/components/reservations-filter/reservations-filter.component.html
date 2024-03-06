@@ -79,16 +79,16 @@
   @if (getAllValuesOfFilters().length > 0) {
   <div class="row fade-in">
     <div class="col">
-      <h4>
+      <h5>
         Filters Tags
         <button
           type="button"
-          class="btn btn-danger float-end rounded-pill"
+          class="btn btn-danger btn-sm float-end rounded-pill"
           (click)="resetFilters()"
         >
           Reset All <i class="fa-solid fa-rotate-right"></i>
         </button>
-      </h4>
+      </h5>
     </div>
     <div class="col-md-12 mt-1">
       <span class="chips fade-in" *ngFor="let value of getAllValuesOfFilters()">

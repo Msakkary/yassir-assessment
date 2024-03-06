@@ -57,6 +57,18 @@ export class ReservationsListComponent implements OnInit {
 
     // Sort the reservationsList based on the selected column and order
     this.reservationsList.sort(this.sort.startSort(this.sortColumn, this.sortOrder));
-    this.storeService.updateReservations(this.reservationsList);
+
+    // Call a separate method to handle the update after sorting
+    this.handleUpdateAfterSort();
+  }
+
+  /**
+   * Private method to handle the update after sorting.
+   * Uses setTimeout to schedule the update after the current call stack has cleared.
+   */
+  private handleUpdateAfterSort() {
+    setTimeout(() => {
+      this.storeService.updateReservations(this.reservationsList);
+    }, 0);
   }
 }
