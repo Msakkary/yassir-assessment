@@ -1,6 +1,13 @@
+/**
+ * @fileoverview
+ * AppComponent is the root component for the Yassir Assessment Angular application.
+ * It manages the retrieval and filtering of reservations from the API, displaying them in the UI.
+ */
+
 import { Component } from '@angular/core';
 import { ApiService } from './services/api.service';
-import { Filters, Reservation } from './interfaces/reservations';
+import { Reservation } from './interfaces/reservations';
+import { Filters } from './interfaces/filters';
 
 @Component({
   selector: 'app-root',
@@ -8,20 +15,31 @@ import { Filters, Reservation } from './interfaces/reservations';
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
+  // Properties
   title = 'yassir-assessment';
-  reservations: Reservation[] = [];
-  filteredReservations: Reservation[] = [];
-  filters: Filters = {};
+  reservations: Reservation[] = [];          // List to store all reservations
+  filteredReservations: Reservation[] = [];  // List to store filtered reservations
+  filters: Filters = {};                      // Object to store filter criteria
 
+  /**
+   * Constructor for AppComponent.
+   * @param apiServices - Instance of the ApiService for fetching reservations from the API.
+   */
   constructor(apiServices: ApiService) {
+    // Fetch reservations from the API and initialize the component
     apiServices.getReservations().subscribe((response: Reservation[]) => {
       this.reservations = response;
       this.filteredReservations = this.reservations;
     });
   }
 
+  /**
+   * Applies filters to the reservations list based on the specified filter criteria.
+   * @param filters - Filter criteria to be applied to the reservations.
+   */
   filterReservations(filters: Filters) {
     console.log(filters);
+    // Update the filteredReservations list based on the filter criteria
     this.filteredReservations = this.filterReservationsByKeyword(
       this.reservations,
       filters
@@ -29,6 +47,12 @@ export class AppComponent {
     console.log(this.filteredReservations);
   }
 
+  /**
+   * Filters reservations based on the specified filter criteria.
+   * @param reservations - List of reservations to be filtered.
+   * @param filters - Filter criteria to be applied to the reservations.
+   * @returns - List of reservations that match the filter criteria.
+   */
   filterReservationsByKeyword(
     reservations: Reservation[],
     filters: Filters

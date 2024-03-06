@@ -1,52 +1,54 @@
+/**
+ * @fileoverview
+ * ReservationsFilterComponent is an Angular component responsible for managing and displaying
+ * filters for reservations in the Yassir Assessment application.
+ */
+
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Filters, Reservation } from '../../interfaces/reservations';
+import { Reservation } from '../../interfaces/reservations';
+import { Filters } from '../../interfaces/filters';
 import { ApiService } from '../../services/api.service';
 
 @Component({
   selector: 'app-reservations-filter',
   templateUrl: './reservations-filter.component.html',
-  styleUrl: './reservations-filter.component.scss',
+  styleUrls: ['./reservations-filter.component.scss'],
 })
 export class ReservationsFilterComponent {
-  @Output() filtersChange = new EventEmitter(); // To emit changes
+  @Output() filtersChange = new EventEmitter(); // Event emitter to notify parent component about filter changes
 
-  statuses: string[] = [];
-  shifts: string[] = [];
-  areas: string[] = [];
-  businessDates: string[] = [];
-  filters: Filters = {};
+  statuses: string[] = []; // Array to store unique reservation status values
+  shifts: string[] = []; // Array to store unique reservation shift values
+  areas: string[] = []; // Array to store unique reservation area values
+  businessDates: string[] = []; // Array to store unique reservation business date values
+  filters: Filters = {}; // Object to store filter criteria
+  reservations: Reservation[] = []; // Array to store reservations data
+  customerName: any; // Variable to store customer name for filtering
 
-  reservations: Reservation[] = [];
-  customerName: any;
-
+  /**
+   * Constructor for ReservationsFilterComponent.
+   * @param apiServices - Instance of the ApiService for fetching reservations from the API.
+   */
   constructor(apiServices: ApiService) {
+    // Fetch reservations from the API and initialize the filter dropdown values
     apiServices.getReservations().subscribe((response: Reservation[]) => {
       this.reservations = response;
-      // Extract unique values for dropdowns
-      this.businessDates = Array.from(
-        new Set(this.reservations.map((item) => item.businessDate))
-      ).sort();
-      this.statuses = Array.from(
-        new Set(this.reservations.map((item) => item.status))
-      );
-      this.shifts = Array.from(
-        new Set(this.reservations.map((item) => item.shift))
-      );
-      this.areas = Array.from(
-        new Set(this.reservations.map((item) => item.area))
-      );
+      this.initializeFilterDropdowns();
     });
   }
 
+  /**
+   * Handles the change event of filter dropdowns.
+   * @param event - Event object containing information about the change in the dropdown.
+   */
   onFilterChange(event: any) {
     const selectedValue = event.target.value;
     const selectedId = event.target.id;
 
-    this.filters = this.pushValueToFilters(
-      this.filters,
-      selectedId,
-      selectedValue
-    );
+    // Update the filters object with the selected filter criteria
+    this.filters = this.pushValueToFilters(this.filters, selectedId, selectedValue);
+
+    // Emit the updated filters to the parent component
     this.filtersChange.emit(this.filters);
 
     // Update the selected value in the dropdown to the first option
@@ -60,6 +62,10 @@ export class ReservationsFilterComponent {
     }
   }
 
+  /**
+   * Retrieves all values from the filters object.
+   * @returns - Array of all values from the filters object.
+   */
   getAllValues(): string[] {
     const allValues: string[] = [];
 
@@ -78,13 +84,19 @@ export class ReservationsFilterComponent {
     return allValues;
   }
 
+  /**
+   * Resets all filters to their default values.
+   */
   resetFilters(): void {
     this.filters = {}; // Reset filters to an empty object or provide default values
     this.customerName = '';
-    // Call any function to fetch or reload the original data
+    // Emit the updated filters to the parent component
     this.filtersChange.emit(this.filters);
   }
 
+  /**
+   * Clears the search input field and the corresponding filter in the Filters object.
+   */
   clearSearch(): void {
     if (this.customerName) {
       // Clear the search input field
@@ -93,11 +105,15 @@ export class ReservationsFilterComponent {
       // Clear the customerName filter in the Filters object
       this.filters.customerName = [];
       
-      // Emit the updated filters
+      // Emit the updated filters to the parent component
       this.filtersChange.emit(this.filters);
     }
   }
 
+  /**
+   * Removes a specific value from the filters object.
+   * @param value - The value to be removed from the filters object.
+   */
   removeValueFromFilters(value: string): void {
     Object.entries(this.filters).forEach(([key, filterArray]) => {
       if (Array.isArray(filterArray) && filterArray.includes(value)) {
@@ -109,9 +125,17 @@ export class ReservationsFilterComponent {
         }
       }
     });
+    // Emit the updated filters to the parent component
     this.filtersChange.emit(this.filters);
   }
-  
+
+  /**
+   * Adds a value to the filters object.
+   * @param filters - The filters object to be updated.
+   * @param key - The key of the filter to be updated.
+   * @param value - The value to be added to the filter.
+   * @returns - The updated filters object.
+   */
   pushValueToFilters(filters: Filters, key: string, value: string): Filters {
     // Use 'as keyof Filters' to assert that the key is a valid key of Filters
     const typedKey = key as keyof Filters;
@@ -133,5 +157,23 @@ export class ReservationsFilterComponent {
     }
 
     return filters;
+  }
+
+  /**
+   * Initializes the values of the filter dropdowns based on the fetched reservations data.
+   */
+  private initializeFilterDropdowns(): void {
+    this.businessDates = Array.from(
+      new Set(this.reservations.map((item) => item.businessDate))
+    ).sort();
+    this.statuses = Array.from(
+      new Set(this.reservations.map((item) => item.status))
+    );
+    this.shifts = Array.from(
+      new Set(this.reservations.map((item) => item.shift))
+    );
+    this.areas = Array.from(
+      new Set(this.reservations.map((item) => item.area))
+    );
   }
 }
