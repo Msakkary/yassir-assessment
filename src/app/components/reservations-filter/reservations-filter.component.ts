@@ -115,4 +115,5 @@ export class ReservationsFilterComponent {
 
     return filters;
   }
+
 }
