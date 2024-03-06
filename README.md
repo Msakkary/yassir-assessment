@@ -1,27 +1,57 @@
-# YassirAssessment
+# Yassir Assessment Angular 
+This Angular application is designed for the Yassir Assessment, providing a user-friendly interface to manage reservations. It utilizes Angular for the frontend, communicates with an API to fetch reservation data, and employs various components and services to enhance user experience.
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.2.2.
+## Installation
+1- Clone the repository to your local machine:
 
-## Development server
+`git clone https://github.com/your-username/yassir-assessment-angular.git`
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+2- Navigate to the project directory:
 
-## Code scaffolding
+`cd yassir-assessment-angular`
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+3- Install the required dependencies:
 
-## Build
+`npm install`
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Usage
 
-## Running unit tests
+1- Start the development server:
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+`npm run start or ng serve`
+This will run the application on http://localhost:4200/.
 
-## Running end-to-end tests
+2- Start the Json mock server:
+`npm run json-server`
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+3- Open this URL in your web browser to
+Access the application and explore the features.
 
-## Further help
+## Project Structure
+The project follows a modular structure to enhance maintainability and readability. Key directories include:
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+- `src/app/components` Contains Angular components for different sections of the application.
+- `src/app/interfaces` Defines TypeScript interfaces for reservations and filters.
+- `src/app/services` Angular services for API communication and data management.
+- `src/app/util` Utility classes or functions used across the a- pplication.
+
+
+## Features
+- Reservation List: Display a list of reservations with various details.
+- Filtering: Filter reservations based on status, shift, area, business date, and customer name.
+- Sorting: Sort reservations by different columns.
+- Responsive Design: Ensures a seamless user experience across different devices.
+- All the data maniuplate developed with native code without rely on third part libraries like `datatables.js` or `material-design-tabels`
+
+## Technologies Used
+- Angular v17.2.2
+- SASS
+- TypeScript
+- RxJS
+- Bootstrap (with fontawesome support)
+
+## Contributing
+Contributions are welcome! If you find a bug or have a feature suggestion, please open an issue or submit a pull request. Follow the contribution guidelines for a smooth collaboration.
+
+## License
+This project is licensed under the MIT License.
