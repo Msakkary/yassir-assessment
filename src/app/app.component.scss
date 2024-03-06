@@ -1,10 +1,17 @@
-.filters{
-    background-image: linear-gradient(to left bottom, #008bc9, #0c86bc, #1780b0, #207ba3, #287597);
-    min-height:100vh;
+.filters {
+  background-image: linear-gradient(
+    to left bottom,
+    #4650e4,
+    #5151dc,
+    #5a53d4,
+    #6154cd,
+    #6656c5
+  );
+  min-height: 100vh;
 }
 
 .container-fluid {
-    background: url('../assets/bg-pattern.png');
-    background-repeat: repeat; // Set the background to repeat
-    background-size: 500px;
+  background: url("../assets/bg-pattern.png");
+  background-repeat: repeat; // Set the background to repeat
+  background-size: 500px;
 }

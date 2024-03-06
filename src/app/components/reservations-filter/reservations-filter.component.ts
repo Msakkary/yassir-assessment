@@ -2,7 +2,6 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Filters, Reservation } from '../../interfaces/reservations';
 import { ApiService } from '../../services/api.service';
 
-
 @Component({
   selector: 'app-reservations-filter',
   templateUrl: './reservations-filter.component.html',
@@ -42,14 +41,22 @@ export class ReservationsFilterComponent {
   onFilterChange(event: any) {
     const selectedValue = event.target.value;
     const selectedId = event.target.id;
-  
-    this.filters = this.pushValueToFilters(this.filters, selectedId, selectedValue);
+
+    this.filters = this.pushValueToFilters(
+      this.filters,
+      selectedId,
+      selectedValue
+    );
     this.filtersChange.emit(this.filters);
-  
+
     // Update the selected value in the dropdown to the first option
-    const dropdownElement = document.getElementById(selectedId) as HTMLSelectElement;
-    if (dropdownElement) {
-      dropdownElement.value = dropdownElement.options[0].value; // Assuming the first option is at index 1 (skip the disabled option)
+    if (selectedId !== 'customerName') {
+      const dropdownElement = document.getElementById(
+        selectedId
+      ) as HTMLSelectElement;
+      if (dropdownElement && dropdownElement.options.length > 0) {
+        dropdownElement.value = dropdownElement.options[0].value;
+      }
     }
   }
 
@@ -78,21 +85,33 @@ export class ReservationsFilterComponent {
     this.filtersChange.emit(this.filters);
   }
 
-  clearSearch() {
-    this.customerName = '';
+  clearSearch(): void {
+    if (this.customerName) {
+      // Clear the search input field
+      this.customerName = '';
+  
+      // Clear the customerName filter in the Filters object
+      this.filters.customerName = [];
+      
+      // Emit the updated filters
+      this.filtersChange.emit(this.filters);
+    }
   }
 
   removeValueFromFilters(value: string): void {
     Object.entries(this.filters).forEach(([key, filterArray]) => {
       if (Array.isArray(filterArray) && filterArray.includes(value)) {
-        this.filters[key as keyof Filters] = filterArray.filter(
-          (v) => v !== value
-        );
+        this.filters[key as keyof Filters] = filterArray.filter((v) => v !== value);
+  
+        // Check if the removed value is from the search input field
+        if (key === 'customerName') {
+          this.clearSearch(); // Clear the search input field
+        }
       }
     });
     this.filtersChange.emit(this.filters);
   }
-
+  
   pushValueToFilters(filters: Filters, key: string, value: string): Filters {
     // Use 'as keyof Filters' to assert that the key is a valid key of Filters
     const typedKey = key as keyof Filters;
@@ -115,5 +134,4 @@ export class ReservationsFilterComponent {
 
     return filters;
   }
-
 }

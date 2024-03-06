@@ -22,16 +22,3 @@
     font-family: "Font Awesome 5 Free";
     content: "\f063";
   }
-
-  .fade-in {
-    animation: fadeInAnimation 900ms;
-  }
-  
-  @keyframes fadeInAnimation {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
