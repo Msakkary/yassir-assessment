@@ -1,42 +1,55 @@
 /**
- * @fileoverview
- * Sort utility class for sorting arrays based on specified properties.
+ * Sort class for handling array sorting based on object properties.
  */
-
 export class Sort {
   private sortOrder = 1;
 
+  /**
+   * Creates an instance of Sort.
+   */
   constructor() {}
 
   /**
-   * Sorts the array based on the specified property and order.
-   * @param array - The array to be sorted.
-   * @param property - The property to sort by.
-   * @param order - The sorting order ('asc' for ascending, 'desc' for descending).
-   * @returns - The sorted array.
+   * Starts the sorting process based on the specified property and order.
+   * @param property - The property to sort by (supports nested properties using dot notation).
+   * @param order - The sort order ('asc' for ascending, 'desc' for descending).
+   * @returns A sorting function to be used with the `Array.sort` method.
    */
-  public startSort(array: any[], property: string, order: string): any[] {
-    this.sortOrder = order === 'desc' ? -1 : 1;
-
-    return array.sort((a, b) => {
+  public startSort(property: string, order: string) {
+    if (order === 'desc') {
+      this.sortOrder = -1;
+    } else {
+      this.sortOrder = 1; // Ensure sortOrder is reset for ascending order
+    }
+    return (a: any, b: any) => {
+      // Handle nested properties
       const aValue = this.getPropertyValue(a, property);
       const bValue = this.getPropertyValue(b, property);
 
-      // Use default string/number comparison for sorting
-      return aValue === bValue ? 0 : aValue < bValue ? -this.sortOrder : this.sortOrder;
-    });
+      // Compare values based on type
+      if (typeof aValue === 'number' && typeof bValue === 'number') {
+        // Numeric comparison
+        return (aValue - bValue) * this.sortOrder;
+      } else {
+        // String comparison
+        const stringCompare = aValue.localeCompare(bValue, undefined, {
+          numeric: true,
+          sensitivity: 'base',
+        });
+        return stringCompare * this.sortOrder;
+      }
+    };
   }
 
   /**
-   * Retrieves the property value from an object based on a dot-separated property path.
-   * @param object - The object from which to retrieve the property value.
-   * @param property - The dot-separated property path.
-   * @returns - The value of the specified property in the object.
+   * Gets the value of a nested property in an object.
+   * @param object - The object containing the nested property.
+   * @param property - The nested property (supports dot notation for nested properties).
+   * @returns The value of the nested property, or undefined if the property is not found.
    */
   private getPropertyValue(object: any, property: string): any {
     const keys = property.split('.');
     let value = object;
-
     for (const key of keys) {
       if (value[key] !== undefined) {
         value = value[key];
@@ -44,7 +57,6 @@ export class Sort {
         return undefined; // or a value that makes sense for your comparison
       }
     }
-
     return value;
   }
 }
